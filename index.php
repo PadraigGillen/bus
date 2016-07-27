@@ -9,36 +9,36 @@
     </style>
     <?php
     if (!isset($_GET["id"])) {
-        die("Please enter an id.");
+        $stop = 2;
+        #die("Please enter an id.");
     }
     $stop = $_GET["id"];
     echo "<title>$stop</title>\n";
 ?>
 </head>
 <body>
-    <center>
+<center>
 <?php
-
+    echo "<h4>#$stop</h4>\n";
     #$xmlFile = "sample.xml";
     $xmlFile = "http://www.corvallistransit.com/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&PlatformNo=$stop";
     $xml = simplexml_load_string(file_get_contents($xmlFile));
 
     if (isset($xml->Platform->Route)) {
-        $trip_arr = (array) $xml->Platform->Route->Destination->Trip;
-        $eta = $trip_arr["@attributes"]["ETA"];
-        
-        $route_arr = (array) $xml->Platform->Route;
-        $route = $route_arr["@attributes"]["RouteNo"];
+        foreach ($xml->Platform->Route as $routeObj) {
+            $routeArr = (array) $routeObj;
+            $routeNum = $routeArr["@attributes"]["RouteNo"];
+
+            $tripArr = (array) $routeObj->Destination->Trip;
+            $eta = $tripArr["@attributes"]["ETA"];
+
+            echo "<h2>Rt $routeNum - $eta min</h2>\n";
+        }
 
     } else {
-        $eta = "&gt; 30";
-        $route = "unknown";
+        echo "<h1>No busses in next 30 minutes</h1>\n";
     }
-
-    echo "        <h4>$stop - Route $route</h4>\n";
-    echo "        <h1><b>$eta min</b></h1>\n";
-
 ?>
-    </center>
+</center>
 </body>
 </html>
