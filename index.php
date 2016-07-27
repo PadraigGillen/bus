@@ -1,18 +1,24 @@
 <html>
 <head>
 <link rel="SHORTCUT ICON" HREF="bus.png">
-<meta http-equiv="refresh" content="15"/>
 <style>body {font-size: 45pt;}</style>
 <?php
     # verify URL has id parameter
-    if (!isset($_GET["id"])) die("Please enter an id.");
-
-    $stop = $_GET["id"];
-    echo "<title>$stop</title>\n";
+    if (isset($_GET["id"])) {
+        $stop = $_GET["id"];
+        echo "<title>$stop</title>\n";
+    } else {
+        $stop = -1; # yeah, yeah, yeah...
+        echo "<title>All aboard</title>\n";
+    }
 ?>
 </head>
 <body><center>
 <?php
+if ($stop != -1) {
+    # refresh page to quickly get new results
+    echo "<meta http-equiv='refresh' content='15'/>\n";
+
     # display stop at top
     echo "<h4>#$stop</h4>\n";
 
@@ -36,6 +42,11 @@
     } else {
         echo "<h1>No busses in next 30 minutes</h1>\n";
     }
+} else {
+    # show user a form to enter their stop ID
+    echo "<h4>Please enter your stop ID</h4>\n";
+    echo "<form method='get'><input type='number' name='id' required><input type='submit'></form>\n";
+}
 ?>
 </center></body>
 </html>
