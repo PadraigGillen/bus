@@ -4,7 +4,7 @@
 <style>body {font-size: 45pt;}</style>
 <?php
     # verify URL has id parameter
-    if (isset($_GET["id"])) {
+    if ( isset($_GET["id"]) && ctype_digit($_GET["id"]) ) {
         $stop = $_GET["id"];
         echo "<title>$stop</title>\n";
     } else {
