@@ -1,7 +1,7 @@
 <html>
 <head>
 <link rel="SHORTCUT ICON" HREF="bus.png">
-<style>body {font-size: 45pt;}</style>
+<style>body {font-size: 3em;}</style>
 <?php
     # verify URL has id parameter
     if ( isset($_GET["id"]) && ctype_digit($_GET["id"]) ) {
@@ -38,14 +38,15 @@ if ($stop != -1) {
 
             echo "<h2>Rt $routeNum - $eta min</h2>\n";
         }
-
+        echo "<a href='/~gillenp/bus' style='font-size: 0.4em;}'>Choose a different stop</a>\n";
     } else {
         echo "<h1>No busses in next 30 minutes</h1>\n";
+        echo "<h3><a href='/~gillenp/bus'>Pick another stop?</a></h3>\n";
     }
 } else {
     # show user a form to enter their stop ID
     echo "<h4>Please enter your stop ID</h4>\n";
-    echo "<form method='get'><input type='number' name='id' required><input type='submit'></form>\n";
+    echo "<form method='get'><input type='number' name='id' required autofocus><input type='submit'></form>\n";
 }
 ?>
 </center></body>
