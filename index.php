@@ -20,6 +20,7 @@ function displayStopInputForm() {
     # show user a form to enter their stop ID
     echo "<h4>Please enter your stop ID</h4>\n";
     echo "<form method='get'><input type='number' name='id' required autofocus><input type='submit'></form>\n";
+    echo "<a href='..' style='font-size: 0.4em;'>back home</a>\n";
 }
 
 if ($numeric_id) {
@@ -28,7 +29,7 @@ if ($numeric_id) {
     $validStop = in_array($stop, $stopIDs);
     if ($validStop) {
         # refresh page to quickly get new results
-        echo "<meta http-equiv='refresh' content='15'/>\n";
+        echo "<meta http-equiv='refresh' content='30'/>\n";
 
         # display stop at top
         echo "<h4>#$stop</h4>\n";
@@ -49,7 +50,7 @@ if ($numeric_id) {
 
                 echo "<h2>Rt $routeNum - $eta min</h2>\n";
             }
-            echo "<a href='/~gillenp/bus' style='font-size: 0.4em;}'>Choose a different stop</a>\n";
+            echo "<a href='/~gillenp/bus' style='font-size: 0.4em;'>Choose a different stop</a>\n";
         } else {
             echo "<h1>No busses in next 30 minutes</h1>\n";
             echo "<h3><a href='/~gillenp/bus'>Pick another stop?</a></h3>\n";
