@@ -28,15 +28,15 @@ if ($numeric_id) {
     include("stopIDs.php");
     $validStop = in_array($stop, $stopIDs);
     if ($validStop) {
-        # refresh page to quickly get new results
-        echo "<meta http-equiv='refresh' content='30'/>\n";
-
         # display stop at top
         echo "<h4>#$stop</h4>\n";
 
         # valid stop ID, grab the latest info
         $xmlFile = "http://www.corvallistransit.com/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&PlatformNo=$stop";
         $xml = simplexml_load_string(file_get_contents($xmlFile));
+
+        # track when the next bus is coming
+        $minEta = 30;
 
         # check if any busses are coming
         if (isset($xml->Platform->Route)) {
@@ -47,14 +47,23 @@ if ($numeric_id) {
 
                 $tripArr = (array) $routeObj->Destination->Trip;
                 $eta = $tripArr["@attributes"]["ETA"];
-
+                if ($eta < $minEta) $minEta = $eta;
                 echo "<h2>Rt $routeNum - $eta min</h2>\n";
             }
             echo "<a href='/~gillenp/bus' style='font-size: 0.4em;'>Choose a different stop</a>\n";
         } else {
-            echo "<h1>No busses in next 30 minutes</h1>\n";
-            echo "<h3><a href='/~gillenp/bus'>Pick another stop?</a></h3>\n";
+            date_default_timezone_set('America/Los_Angeles');
+            if (date('w') == 0) {
+                echo "<h1>Busses don't run on Sunday ya doofus</h1>\n";
+            } else {
+                echo "<h1>No busses in next 30 minutes</h1>\n";
+                echo "<h3><a href='/~gillenp/bus'>Pick another stop?</a></h3>\n";
+            }
         }
+
+        # refresh page to quickly get new results
+        $refreshRate = ($minEta < 4) ? 15 : 30;
+        echo "<meta http-equiv='refresh' content='$refreshRate'/>\n";
     } else {
         echo "<h3>-Invalid stop entered-</h3>\n";
         displayStopInputForm();
