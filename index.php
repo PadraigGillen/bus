@@ -1,33 +1,38 @@
-<html>
-<head>
-<link rel="SHORTCUT ICON" HREF="bus.png">
-<style>body {font-size: 3em;}</style>
 <?php
+    # verify URL has valid parameter
     $numeric_id = false;
-    # verify URL has id parameter
     if ( isset($_GET["id"]) && ctype_digit($_GET["id"]) ) {
         $numeric_id = true;
         $stop = $_GET["id"];
-        echo "<title>$stop</title>\n";
-    } else { # user is new or entered a bad ID
-        echo "<title>All aboard</title>\n";
     }
 ?>
+<html>
+<head>
+<link rel="SHORTCUT ICON" HREF="bus.png">
+<style>
+main {
+    font-size: 3em;
+    text-align: center;
+}
+.footnote {
+    font-size: 0.4em;
+}
+</style>
+<title><?php echo ($numeric_id) ? $stop : "All aboard";?></title>
 </head>
-<body><center>
+<main>
 <?php
 function displayStopInputForm() {
     # show user a form to enter their stop ID
     echo "<h4>Please enter your stop ID</h4>\n";
     echo "<form method='get'><input type='number' name='id' required autofocus><input type='submit'></form>\n";
-    echo "<a href='..' style='font-size: 0.4em;'>back home</a>\n";
+    echo "<a href='..' class='footnote'>back home</a>\n";
 }
 
 if ($numeric_id) {
     # verify use entered a valid stop
     include("stopIDs.php");
-    $validStop = in_array($stop, $stopIDs);
-    if ($validStop) {
+    if (in_array($stop, $stopIDs)) { // check if stop is in our list
         # display stop at top
         echo "<h4>#$stop</h4>\n";
 
@@ -50,7 +55,7 @@ if ($numeric_id) {
                 if ($eta < $minEta) $minEta = $eta;
                 echo "<h2>Rt $routeNum - $eta min</h2>\n";
             }
-            echo "<a href='/~gillenp/bus' style='font-size: 0.4em;'>Choose a different stop</a>\n";
+            echo "<a href='/~gillenp/bus' class='footnote'>Choose a different stop</a>\n";
         } else {
             date_default_timezone_set('America/Los_Angeles');
             if (date('w') == 0) {
@@ -72,5 +77,5 @@ if ($numeric_id) {
     displayStopInputForm();
 }
 ?>
-</center></body>
+</main>
 </html>
