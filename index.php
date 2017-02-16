@@ -79,7 +79,7 @@ if ($numeric_id) {
         }
 
         # refresh page to quickly get new results
-        $refreshRate = ($minEta < 4) ? 15 : 30;
+        $refreshRate = ($minEta < 5) ? 15 : 30;
         echo "<meta http-equiv='refresh' content='$refreshRate'/>\n";
         if ($iconTracking) {
             //if ($trackedEta) $trackedEta = $minEta;
