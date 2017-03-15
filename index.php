@@ -11,8 +11,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link id="favicon" rel="shortcut icon" type="image/png" href="icons/gen.png">
 <meta charset="utf-8">
+<link id="favicon" rel="shortcut icon" type="image/png" href="icons/gen.png">
 <style>
 main {
     font-size: 3em;
@@ -61,7 +61,7 @@ if ($numeric_id) {
                     $trackedEta = $eta;
                 }
                 if ($eta < $minEta) $minEta = $eta;
-                echo "<h2>Rt $routeNum - $eta min</h2>\n";
+                echo "<h2 onclick=\"javascript:location.href='?id=$stop&trrt=$routeNum'\">Rt $routeNum - $eta min</h2>\n";
             } 
             # have the icon track the bus arrival time if there's only 1
             if ( (count($xml->Platform->Route) == 1) && !($iconTracking) ) {
