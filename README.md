@@ -1,5 +1,6 @@
-# bus
-Access at: [orst.edu/~gillenp/bus](http://orst.edu/~gillenp/bus)
+# bus [inactive]
+- Previously available at: [orst.edu/~gillenp/bus](http://orst.edu/~gillenp/bus).
+- Abandoned due to lack of use.
 
 ## FAQ
 ### What is this?
