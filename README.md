@@ -1,21 +1,24 @@
 # bus [inactive]
-- Previously available at: [orst.edu/~gillenp/bus](http://orst.edu/~gillenp/bus).
-- Abandoned due to lack of use.
-
-## FAQ
-### What is this?
 A project designed to display the arrivals status of a Corvallis bus stop.
 
-### Why is it a mess of PHP?
-At the time of creation, I had some old code that was easily adaptable to this need.
-Additionally, I knew it would work well with OSU COE web hosting.
+Made possible by the [Corvallis Transit System's](https://www.corvallisoregon.gov/cts)
+accurate, publically accessible API.
 
-### I just tried to read the source and am questioning your sanity.
-Yes, well this has been developed feature by feature as I think something else would be useful.
-It functions reliably for what I need, but the code is pretty all over the place.
+## Design motivations
+- Results should load instantly.
+- Each stop should have a unique URL for easy bookmarking.
+- The display should be simple and readable at a glance for easy mobile use.
+- Results should update automatically at least once every 30 seconds.
+- As the bus nears the stop, results should update every 15 seconds.
 
-### This could look a lot better.
-Probably. My aim was readability at a glance.
+## Added features
+- Show the arrival time for the closest bus in the favicon.
+  - Useful mainly on a desktop, since the user just needs to glance at a tab in the background.
 
-### How often does it update?
-Ideally once every 30 seconds, then more frequently when an arrival is close.
+## Design Process
+- PHP was chosen for server side processing to take advantage of OSU's College of Engineering's
+  [student web hosting](https://web.engr.oregonstate.edu/).
+- The initial code was adapted from existing PHP projects I had at the time, and was slowly
+  added to when I wanted a new feature.
+- As such, the code runs in one big PHP block. Since it suited my purposes, and the point
+  of the project was to save me time,  I chose not to refactor it.
